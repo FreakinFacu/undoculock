@@ -25,6 +25,13 @@ def gen_file_name(user_id, filename):
     return new_name
 
 
+@actions.route('/view')
+def view():
+    dbx = dropbox.Dropbox('NIP9ZHfsSXcAAAAAAAASgJrQdNyIiEYDVWGyau04Wy-fupfVft3UyWaHZ16iJZAy')
+    link = dbx.files_get_temporary_link("/readme.md")
+    return link.link
+
+
 @actions.route('/imageUpload', methods=['POST'])
 @login_required
 def upload():
