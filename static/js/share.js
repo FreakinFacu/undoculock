@@ -40,7 +40,7 @@ $(function () {
                         var item = response['results'][i];
 
                         $("#list").append(
-                            $("<p>").text(item.id + " " + item.filepath)
+                            $("<p>").text(item.id + " " + item.name)
                         )
                     }
                 }
