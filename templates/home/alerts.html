@@ -3,18 +3,18 @@
 {% block body %}
     <div class="container card center">
         <div class="row">
-            <div class="section">
-                <h4>Alerts</h4>
-                <a class="waves-effect waves-light btn red modal-trigger" href="#modal1">
-                    <i class="material-icons left">add</i>Add new alert
-                </a>
-            </div>
+            <form action="/actions/addAlert" method="post">
+                <div class="section">
+                    <h4>Alerts</h4>
+                    <a class="waves-effect waves-light btn red modal-trigger" href="#modal1">
+                        <i class="material-icons left">add</i>Add new alert
+                    </a>
+                </div>
 
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <div class="modal-content section" style="min-height: 350px">
-                    <h4>Create a new alert</h4>
-                    <form action="/actions/addAlert" method="post">
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal">
+                    <div class="modal-content section" style="min-height: 350px">
+                        <h4>Create a new alert</h4>
                         <div class="row">
                             <div class="input-field col s12 m3">
                                 <i class="material-icons prefix">account_circle</i>
@@ -39,15 +39,15 @@
                                 <label>When should we send the alert?</label>
                             </div>
                         </div>
-                    </form>
-                    <p>Alerts can be set up ahead of time. If you end up not needing it you can come back and delete
-                        it.</p>
+                        <p>Alerts can be set up ahead of time. If you end up not needing it you can come back and delete
+                            it.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+                        <button type="submit" class="submitmodal-action waves-effect waves-green btn-flat">Create</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-                    <a href="#!" class="modal-action waves-effect waves-green btn-flat">Create</a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 {% endblock %}

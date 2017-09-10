@@ -1,6 +1,8 @@
 import uuid
 from datetime import datetime
 
+from flask import url_for
+
 from app.models import db
 
 
@@ -19,6 +21,7 @@ class Shares(db.Model):
 
     TYPE_FACEBOOK = "facebook"
     TYPE_EMAIL = "email"
+    TYPE_SMS = "sms"
 
     # user = db.relationship('Users', foreign_keys='Files.user_id',  primaryjoin="Users.id == Shares.user_id")
 
@@ -50,6 +53,9 @@ class Shares(db.Model):
 
     def is_active(self):
         return self.state == Shares.STATE_ACTIVE
+
+    def get_link(self):
+        return url_for("home.view_share", key=self.share_key)
 
     def save(self):
         db.session.add(self)
