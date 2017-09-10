@@ -55,7 +55,7 @@ class Shares(db.Model):
         return self.state == Shares.STATE_ACTIVE
 
     def get_link(self):
-        return url_for("home.view_share", key=self.share_key)
+        return url_for("home.view_shared", key=self.share_key, _external=True)
 
     def save(self):
         db.session.add(self)

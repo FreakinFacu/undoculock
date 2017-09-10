@@ -32,13 +32,14 @@ def info():
 @home_blueprint.route('/alerts')
 @login_required
 def alerts():
-    # file_list = [{
-    #                  "name": get_display_filename_from_db(f),
-    #                  "id": f.id,
-    #                  "type": get_display_type(f)
-    #              } for f in current_user.files]
+    alert_list = [{
+                     "message": a.message,
+                     "id": a.id,
+                     "number": a.number,
+                     "state": a.state
+                 } for a in current_user.alerts]
 
-    return render_template('home/alerts.html')
+    return render_template('home/alerts.html', alerts=alert_list)
 
 
 @home_blueprint.route('/fb')

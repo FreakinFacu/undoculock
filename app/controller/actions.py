@@ -6,6 +6,7 @@ from flask_login import current_user, login_required, login_user
 from werkzeug.utils import redirect, secure_filename
 
 from app.helpers.filepath import gen_file_name, get_display_filename_from_db, get_display_type
+from app.models.alerts import Alerts
 from app.models.files import Files
 from app.models.shares import Shares
 from app.models.users import Users
@@ -107,10 +108,10 @@ def verifyEmail():
     files = share.user.files
 
     file_list = [{
-         "name": get_display_filename_from_db(f),
-         "id": f.id,
-         "type": get_display_type(f)
-     } for f in files]
+                     "name": get_display_filename_from_db(f),
+                     "id": f.id,
+                     "type": get_display_type(f)
+                 } for f in files]
 
     return json.dumps({"results": file_list})
 
@@ -145,3 +146,10 @@ def twillio():
     message = client.messages.create(to="+17146869405", from_="12134938836", body="Hello from Python!")
     print(message.sid)
     return ""
+
+
+@actions.route("/addAlert", methods=["POST"])
+@login_required
+def add_alert():
+    Alerts.create(current_user.id, request.form['number'], request.form['message'])
+    return redirect(url_for("home.alerts"))

@@ -10,16 +10,14 @@ class Alerts(db.Model):
     # Define Columns
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    number = db.Column(db.String(255), Nullable=False)
-    message = db.Column(db.String(255), Nullable=False)
+    number = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.String(255), nullable=False)
     send_time = db.Column(db.TIMESTAMP, default=datetime.utcnow)
     state = db.Column(db.String(10))
 
     created_at = db.Column(db.TIMESTAMP, default=datetime.utcnow)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = db.Column(db.TIMESTAMP, nullable=True)
-
-    # user = db.relationship('Users', foreign_keys='Files.user_id',  primaryjoin="Users.id == Files.user_id")
 
     STATE_ACTIVE = "active"
     STATE_SENT = "sent"

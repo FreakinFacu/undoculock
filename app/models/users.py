@@ -18,6 +18,7 @@ class Users(db.Model):
     # Define Relationships
     files = db.relationship('Files', backref='user', lazy='dynamic')
     shares = db.relationship('Shares', backref='user', lazy='dynamic')
+    alerts = db.relationship('Alerts', backref='user', lazy='dynamic')
 
     @staticmethod
     def create(name, facebook_id):

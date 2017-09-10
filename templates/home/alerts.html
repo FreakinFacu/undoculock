@@ -11,6 +11,30 @@
                     </a>
                 </div>
 
+                <ul class="collection">
+                    {% for alert in alerts %}
+
+                        <li class="collection-item avatar">
+
+                            <div class="col sm4">
+                                {{ alert.number }}
+                            </div>
+
+                            <div class="col sm4">
+                                {{ alert.message }}
+                            </div>
+
+                            <div class="col sm4">
+                                {% if alert.state == "sent" %}
+                                    <i class="material-icons green circle right-align">check</i>
+                                {% else %}
+                                    <i class="material-icons red circle right-align">cancel</i>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
                 <!-- Modal Structure -->
                 <div id="modal1" class="modal">
                     <div class="modal-content section" style="min-height: 350px">
@@ -18,13 +42,13 @@
                         <div class="row">
                             <div class="input-field col s12 m3">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_prefix" type="tel" class="validate">
+                                <input id="icon_prefix" type="tel" class="validate" name="number">
                                 <label for="icon_prefix">Phone Number</label>
                             </div>
 
                             <div class="input-field col s12 m6">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_prefix" type="text" class="validate">
+                                <input id="icon_prefix" type="text" class="validate" name="message">
                                 <label for="icon_prefix">Message</label>
                             </div>
 
