@@ -126,3 +126,16 @@ def verifyEmail():
 
     file_list = [{"filepath": f.filepath, "id": f.id} for f in files]
     return json.dumps({"results": file_list})
+
+
+@actions.route("/dothething")
+def twillio():
+    from twilio.rest import Client
+    # Your Account SID from twilio.com/console
+    account_sid = "AC3823d80d718fe7df303909472abc7ce1"
+    # Your Auth Token from twilio.com/console
+    auth_token = "772496176978bab257e321ad6cf13ccc"
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(to="+17146869405", from_="12134938836", body="Hello from Python!")
+    print(message.sid)
+    return ""
