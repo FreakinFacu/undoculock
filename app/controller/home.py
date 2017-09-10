@@ -21,3 +21,8 @@ def info():
 @home.route('/fb')
 def fb():
     return render_template('home/fb.html')
+
+
+@home.route('/home')
+def home():
+    return render_template('home/home.html')
