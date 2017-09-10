@@ -16,11 +16,8 @@ class Users(db.Model):
     deleted_at = db.Column(db.TIMESTAMP, nullable=True)
 
     # Define Relationships
-
     files = db.relationship('Files', backref='user', lazy='dynamic')
     shares = db.relationship('Shares', backref='user', lazy='dynamic')
-    # files = db.relationship('Files', backref='users', lazy='dynamic',  primaryjoin="Users.id == Files.user_id")
-    # shares = db.relationship('Shares', backref='users', lazy='dynamic',  primaryjoin="Users.id == Shares.user_id")
 
     @staticmethod
     def create(name, facebook_id):
