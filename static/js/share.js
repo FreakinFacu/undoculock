@@ -42,10 +42,10 @@ $("#verifyShare").submit(function () {
                     clone.show();
                     clone.find("a").attr("data-id", item.id);
 
-                    $("tbody").append(
-                        $("<tr>")
-                            .append($("<td>").text(item.name))
-                            .append($("<td>").append(clone))
+                    $("ul.collection").append(
+                        $("<li>")
+                            .append($("<a>").text(item.name))
+                            .append($("<i>").append(clone))
                     );
 
                     $("#verifyShare").slideUp();
