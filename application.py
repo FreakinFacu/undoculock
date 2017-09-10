@@ -15,13 +15,13 @@ app.register_blueprint(actions)
 # Secret Key
 app.secret_key = "Some secret key that will actually be secret at some point"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp/test.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///temp/test.db"
 db.init_app(app)
 
 # login things
 login_manager = LoginManager()
-login_manager.login_view = "home.index"
+login_manager.login_view = "actions.index"
 login_manager.init_app(app)
 app.config['REMEMBER_COOKIE_HTTPONLY'] = True
 

@@ -1,0 +1,12 @@
+{% extends "temp/base.html" %}
+{% block global_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/file.js') }}"></script>
+
+{% endblock %}
+{% block body %}
+    <form method="post" action="/actions/uploadFile" enctype="multipart/form-data">
+        <input type="file" name=file>
+        <button type="submit">SUBMIT</button>
+    </form>
+{% endblock %}

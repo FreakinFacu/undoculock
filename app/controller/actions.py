@@ -5,9 +5,11 @@ from dropbox import dropbox
 from flask import Blueprint, request
 from flask import render_template
 from flask import url_for
+from flask.ext.login import current_user
 from flask_login import login_required, login_user
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, redirect
 
+from app.models.files import Files
 from app.models.users import Users
 
 actions = Blueprint('actions', __name__, url_prefix='/actions')
@@ -63,7 +65,29 @@ def login():
     return json.dumps({"redirectUrl": url_for("actions.steptwo")})
 
 
-@actions.route("/steptwo")
+@actions.route("/steptwo", methods=["GET"])
 @login_required
 def steptwo():
-    return "YOU'RE LOGGED IN"
+    return render_template("temp/file.html")
+
+
+@actions.route('/uploadFile', methods=['POST'])
+@login_required
+def upload2():
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    filename = gen_file_name(current_user.id, filename)
+
+    dbx = dropbox.Dropbox('NIP9ZHfsSXcAAAAAAAASgJrQdNyIiEYDVWGyau04Wy-fupfVft3UyWaHZ16iJZAy')
+    x = dbx.files_upload(file.stream.read(), filename)
+    print(str(x))
+
+    Files.create(current_user.id, x.path_display)
+    # return responses.create_success_with_data({'url': image_url})
+    return redirect(url_for("actions.stepthree"))
+
+
+@actions.route("/stepthree")
+@login_required
+def stepthree():
+    return "Oh yiss"
