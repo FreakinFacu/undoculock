@@ -21,7 +21,7 @@ db.init_app(app)
 
 # login things
 login_manager = LoginManager()
-login_manager.login_view = "actions.index"
+login_manager.login_view = "home.index"
 login_manager.init_app(app)
 app.config['REMEMBER_COOKIE_HTTPONLY'] = True
 
