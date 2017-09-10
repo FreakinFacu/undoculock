@@ -2,14 +2,14 @@ from flask import Flask
 from flask_login import LoginManager
 
 from app.controller.actions import actions
-from app.controller.home import home
+from app.controller.home import home_blueprint
 from app.models import db, create_all
 from app.models.users import Users
 
 app = Flask(__name__)
 
 # Register Blueprints
-app.register_blueprint(home)
+app.register_blueprint(home_blueprint)
 app.register_blueprint(actions)
 
 # Secret Key
