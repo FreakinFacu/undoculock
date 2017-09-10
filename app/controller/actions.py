@@ -118,10 +118,10 @@ def verifyEmail():
     share = Shares.get_by_share_key(share_key)
 
     if share is None or not share.is_active():
-        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+        return make_response(json.dumps({"error": "Unable to validate access"}), 400)
 
-    if share.key != request.json['email']:
-        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+    if share.key != request.json['key']:
+        return make_response(json.dumps({"error": "Unable to validate access"}), 400)
 
     files = share.user.files
 
@@ -141,7 +141,7 @@ def download_file():
     if share is None or not share.is_active():
         return make_response(json.dumps({"error": "Unable to validate email"}), 400)
 
-    if share.key != request.json['email']:
+    if share.key != request.json['key']:
         return make_response(json.dumps({"error": "Unable to validate email"}), 400)
 
     file = Files.get_by_id(request.json['file_id'])

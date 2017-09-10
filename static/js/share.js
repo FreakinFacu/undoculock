@@ -26,7 +26,7 @@ $("#verifyShare").submit(function () {
         type: 'POST',
         url: '/actions/verifyEmail',
         data: JSON.stringify({
-            "email": $("#email").val(),
+            "key": $("#key").val(),
             "share_key": $("#shareKey").val()
         }),
         contentType: "application/json",
@@ -68,7 +68,7 @@ $(".collection.showWhenValid").on("click", "a.download_file", function () {
         type: 'POST',
         url: '/actions/downloadFile',
         data: JSON.stringify({
-            "email": $("#email").val(),
+            "key": $("#key").val(),
             "share_key": $("#shareKey").val(),
             "file_id": id
         }),
