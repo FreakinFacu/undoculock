@@ -57,7 +57,7 @@ def upload2():
     dbx = dropbox.Dropbox('NIP9ZHfsSXcAAAAAAAASgJrQdNyIiEYDVWGyau04Wy-fupfVft3UyWaHZ16iJZAy')
     x = dbx.files_upload(file.stream.read(), filename)
 
-    Files.create(current_user.id, x.path_display)
+    Files.create(current_user.id, x.path_display, "Photo")
     return redirect(url_for("actions.stepthree"))
 
 
@@ -71,7 +71,7 @@ def stepthree():
 @login_required
 def shareEmail():
     share = Shares.create(current_user.id, Shares.TYPE_EMAIL, request.json['email'])
-    return url_for("actions.shareTheLoad", key=share.share_key)
+    return url_for("home.view_share", key=share.share_key)
 
 
 @actions.route("/shareLink")
@@ -98,6 +98,25 @@ def verifyEmail():
 
     file_list = [{"name": get_display_filename_from_db(f), "id": f.id} for f in files]
     return json.dumps({"results": file_list})
+
+
+@actions.route("/downloadFile", methods=["POST"])
+def download_file():
+    share = Shares.get_by_share_key(request.json['share_key'])
+
+    if share is None or not share.is_active():
+        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+
+    if share.key != request.json['email']:
+        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+
+    file = Files.get_by_id(request.json['file_id'])
+
+    dbx = dropbox.Dropbox('NIP9ZHfsSXcAAAAAAAASgJrQdNyIiEYDVWGyau04Wy-fupfVft3UyWaHZ16iJZAy')
+    # dbx.files_delete_v2()
+    link = dbx.files_get_temporary_link(file.filepath)
+
+    return json.dumps({"redirectUrl": link.link})
 
 
 @actions.route("/dothething")

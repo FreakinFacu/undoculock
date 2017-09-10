@@ -1,4 +1,7 @@
 from flask import Blueprint, render_template
+from flask import request
+
+from app.models.shares import Shares
 
 home_blueprint = Blueprint('home', __name__)
 
@@ -26,3 +29,13 @@ def fb():
 @home_blueprint.route('/home')
 def home():
     return render_template('home/home.html')
+
+
+@home_blueprint.route('/view_shared')
+def view_shared():
+    share = Shares.get_by_share_key(request.args['key'])
+
+    if share is None or not share.is_active():
+        return "Oh noes"
+
+    return render_template("home/view_shared.html", type=share.type, share_key=request.args['key'])

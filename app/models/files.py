@@ -33,6 +33,10 @@ class Files(db.Model):
 
         return file
 
+    @staticmethod
+    def get_by_id(file_id):
+        return Files.query.filter_by(id=file_id).first()
+
     def delete(self):
         # TODO make file call to erase file
         self.state = Files.STATE_DELETED
