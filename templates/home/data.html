@@ -4,9 +4,46 @@
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
 {% block body %}
+<!--<script type="text/javascript" src="js/int.js"></script>-->
+<div class="center row">
+     <div class="col s12">
+         <h5> How do you want to send your package? </h5>
+
+          <!-- Switch -->
+ <div class="switch">
+   <p> Via Facbook </p>
+     <label>
+     Off
+     <input type="checkbox" id="s_fb">
+     <span class="lever"></span>
+     On
+   </label>
+ </div>
+
+<div class="switch">
+   <p> Via Email </p>
+     <label>
+     Off
+     <input type="checkbox" id="s_email" >
+     <span class="lever"></span>
+     On
+   </label>
+ </div>
 
 
- <td id="template" style="display: none;"><a class="btn-floating btn waves-effect waves-light red download_file">
-                        <i class="material-icons">file_download</i></a>
+<div class="switch">
+   <p> Via SMS </p>
+     <label>
+     Off
+     <input type="checkbox" id="s_sms" >
+     <span class="lever"></span>
+     On
+   </label>
+ </div>
+
+   </div>
+
+
+       </div>
 
 {% endblock %}
