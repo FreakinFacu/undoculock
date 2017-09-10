@@ -61,7 +61,7 @@ $("#verifyShare").submit(function () {
     return false;
 });
 
-$("table").on("click", "a.download_file", function () {
+$(".collection.showWhenValid").on("click", "a.download_file", function () {
     var id = $(this).data("id");
 
     $.ajax({
