@@ -13,3 +13,9 @@ def get_display_filename_from_db(file: Files):
     path = file.filepath.split("/")[2].split(".")[1]
 
     return "%s - %s" % (file.type, path)
+
+
+def get_display_type(file: Files):
+    if file.filepath.endswith(".md") or file.filepath.endswith(".doc") or file.filepath.endswith(".txt"):
+        return "insert_chart"
+    return "image"

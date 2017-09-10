@@ -58,7 +58,7 @@ def upload2():
     x = dbx.files_upload(file.stream.read(), filename)
 
     Files.create(current_user.id, x.path_display, "Photo")
-    return redirect(url_for("actions.stepthree"))
+    return redirect(url_for("home.info"))
 
 
 @actions.route("/stepthree")

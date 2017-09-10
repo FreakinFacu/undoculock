@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template
-from flask import request
+from flask import Blueprint, render_template, request
+from flask_login import current_user, login_required
 
+from app.helpers.filepath import get_display_filename_from_db, get_display_type
 from app.models.shares import Shares
 
 home_blueprint = Blueprint('home', __name__)
@@ -17,8 +18,15 @@ def data():
 
 
 @home_blueprint.route('/info')
+@login_required
 def info():
-    return render_template('home/info.html')
+    file_list = [{
+                     "name": get_display_filename_from_db(f),
+                     "id": f.id,
+                     "type": get_display_type(f)
+                 } for f in current_user.files]
+
+    return render_template('home/info.html', name=current_user.name, files=file_list)
 
 
 @home_blueprint.route('/fb')
