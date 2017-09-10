@@ -2,10 +2,10 @@
 
 {% block body %}
 
-    <div class="row">
-        <br><br>
-        <div class="col s12">
-            <div class="center container card">
+    <div class="center container card">
+        <div class="row section">
+            <br><br>
+            <div class="col s12">
 
                 <form action="/actions/uploadFile" method="post" enctype="multipart/form-data" id="fileForm">
 
@@ -43,12 +43,13 @@
                 </ul>
 
                 <div class="row">
-                  <a class="btn waves-effect waves-light" href="{{ url_for("actions.stepthree") }}">Continue
-                    <i class="material-icons right">send</i>
-                  </a>
+                    <a class="btn waves-effect waves-light" href="{{ url_for("actions.stepthree") }}">Continue
+                        <i class="material-icons right">send</i>
+                    </a>
                 </div>
 
             </div>
+        </div>
         </div>
     </div>
 

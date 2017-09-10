@@ -6,3 +6,8 @@ $("#fileUpload").change(function () {
 
     return false;
 });
+
+$(document).ready(function () {
+    $('select').material_select();
+    $('.modal').modal();
+});

@@ -44,16 +44,15 @@
                     </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i
-                            class="mdi-action-settings-overscan tooltipped" data-position="bottom" data-delay="50"
-                            data-tooltip="Enable full-screen"></i></a>
+                    <li>
+                        <a href="{{ url_for("home.info") }}" class="waves-effect waves-block waves-light">
+                            <i class="material-icons">description</i>
+                        </a>
                     </li>
-                    <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i
-                            class="mdi-communication-quick-contacts-dialer"
-                            onclick="Materialize.toast('Call us today @ (360) 123-4567', 6000)"></i></a></li>
-                    <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i
-                            class="mdi-communication-quick-contacts-mail"
-                            onclick="Materialize.toast('Have a question? Send us an email at alex.loiza@domain.com', 8000)"></i></a>
+                    <li>
+                        <a href="{{ url_for("home.alerts") }}" class="waves-effect waves-block waves-light">
+                            <i class="material-icons">notifications</i>
+                        </a>
                     </li>
                 </ul>
             </div>
