@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime
 
 from flask import url_for
+from twilio.rest import Client
 
 from app.models import db
 
@@ -58,6 +59,27 @@ class Shares(db.Model):
         generated_link = url_for("home.view_shared", key=self.share_key, _external=True)
         print(generated_link)
         return generated_link
+
+    def send(self):
+        if self.type == Shares.TYPE_SMS:
+            self.send_sms()
+        elif self.type == Shares.TYPE_EMAIL:
+            self.get_link()
+        elif self.type == Shares.TYPE_FACEBOOK:
+            self.get_link()
+
+    def send_sms(self):
+        body = "UndocuLock shared from {name} {link}".format(
+            name=self.user.name,
+            link=self.get_link()
+        )
+
+        # Your Account SID from twilio.com/console
+        account_sid = "AC3823d80d718fe7df303909472abc7ce1"
+        # Your Auth Token from twilio.com/console
+        auth_token = "772496176978bab257e321ad6cf13ccc"
+        client = Client(account_sid, auth_token)
+        client.messages.create(to=self.key, from_="12134938836", body=body)
 
     def save(self):
         db.session.add(self)

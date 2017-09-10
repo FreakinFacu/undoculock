@@ -75,6 +75,24 @@ def shareEmail():
     return share.get_link()
 
 
+@actions.route("/completeShare", methods=["POST"])
+@login_required
+def complete_share():
+    if 'email' in request.json and request.json['email'] is not None:
+        share = Shares.create(current_user.id, Shares.TYPE_EMAIL, request.json['email'])
+        share.send()
+
+    if 'sms' in request.json and request.json['sms'] is not None:
+        share = Shares.create(current_user.id, Shares.TYPE_SMS, request.json['sms'])
+        share.send()
+
+    if 'facebook' in request.json and request.json['facebook'] is not None:
+        share = Shares.create(current_user.id, Shares.TYPE_FACEBOOK, request.json['facebook'])
+        share.send()
+
+    return json.dumps({"redirectUrl": url_for("home.complete")})
+
+
 @actions.route("/shareLink")
 def shareTheLoad():
     share = Shares.get_by_share_key(request.args['key'])

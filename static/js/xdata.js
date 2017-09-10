@@ -1,10 +1,12 @@
 //// SFACEBOOK MODEULE ////
+var user_fb, sms, user_m;
+
 $('#s_fb').bind('change', function (e) {
     console.log($(this).prop('checked'));
     if ($(this).prop('checked')) {
         // if the switch is turn onn then put code here!
         //             Materialize.toast('Activating share via facebook',3000);
-        var user_fb = prompt("Please Enter the user name");
+        user_fb = prompt("Please Enter the user name");
 
         //            ## if cancell, change the value to dissable
         if (user_fb === null) {
@@ -22,6 +24,7 @@ $('#s_fb').bind('change', function (e) {
         } else if (user_fb === "") {
             alert("You have not entered a valid email. ");
             $(this).prop('checked', false);
+            user_fb=null;
             return false;
         } else {
             console.log("user selected " + user_fb)
@@ -43,7 +46,7 @@ $('#s_email').bind('change', function (e) {
     if ($(this).prop('checked')) {
         // if the switch is turn onn then put code here!
         //             Materialize.toast('Activating share via facebook',3000);
-        var user_m = prompt("Please Enter an Email");
+        user_m = prompt("Please Enter an Email");
 
         //            ## if cancell, change the value to dissable
         if (user_m === null) {
@@ -56,16 +59,17 @@ $('#s_email').bind('change', function (e) {
                 console.log("Cancelled");
             } else {
                 console.log("null error on email input");
-            };
+            }
 
         } else if (user_m === "") {
             alert("You have not entered a valid email. ");
             $(this).prop('checked', false);
+            user_m = null;
             return false;
         } else {
-            console.log("user selected " + user_m)
+            console.log("user selected " + user_m);
             Materialize.toast('Activating share via email', 3000);
-        };
+        }
 
     } else {
         //if switch is deactivated then put code here!
@@ -82,7 +86,7 @@ $('#sms').bind('change', function (e) {
     if ($(this).prop('checked')) {
         // if the switch is turn onn then put code here!
         //             Materialize.toast('Activating share via facebook',3000);
-        var sms = prompt("Please Enter the phone number");
+        sms = prompt("Please Enter the phone number");
 
         //            ## if cancell, change the value to dissable
         if (sms === null) {
@@ -100,6 +104,7 @@ $('#sms').bind('change', function (e) {
         } else if (sms === "") {
             alert("You have not entered a valid phone number. ");
             $(this).prop('checked', false);
+            sms = null;
             return false;
         } else {
             console.log("user selected " + sms)
@@ -111,4 +116,31 @@ $('#sms').bind('change', function (e) {
         Materialize.toast('Deactivating share via SMS', 3000);
         //            Materialize.toast('Deactivating share via facebook', 3000);
     }
+});
+
+
+$("#share").click(function(){
+
+    $.ajax({
+        type: 'POST',
+        url: '/actions/completeShare',
+        data: JSON.stringify({
+            "email": user_m,
+            "facebook": user_fb,
+            "sms": sms
+        }),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (response) {
+            if (response.redirectUrl) {
+                location.href = response.redirectUrl;
+            }
+        },
+        error: function (response) {
+            if (response.responseJSON.errorMessage) {
+                $("#fbError").text(response.responseJSON.errorMessage).show()
+            }
+        }
+    });
+    return false;
 });

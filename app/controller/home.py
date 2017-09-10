@@ -17,6 +17,11 @@ def data():
     return render_template('home/data.html')
 
 
+@home_blueprint.route('/complete')
+def complete():
+    return "You're done sharing"
+
+
 @home_blueprint.route('/info')
 @login_required
 def info():
