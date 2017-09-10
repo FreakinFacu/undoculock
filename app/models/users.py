@@ -7,9 +7,7 @@ class Users(db.Model):
     # Define Columns
     id = db.Column(db.Integer, primary_key=True)
 
-    email = db.Column(db.String(80), index=True)
-    first_name = db.Column(db.String(80), default='', nullable=False)
-    last_name = db.Column(db.String(80), default='', nullable=False)
+    name = db.Column(db.String(255), default='', nullable=False)
 
     facebook_id = db.Column(db.String(255), index=True)
 
@@ -18,15 +16,16 @@ class Users(db.Model):
     deleted_at = db.Column(db.TIMESTAMP, nullable=True)
 
     # Define Relationships
-    files = db.relationship('Files', backref='users', lazy='dynamic')
-    shares = db.relationship('Shares', backref='users', lazy='dynamic')
+
+    files = db.relationship('Files', backref='user', lazy='dynamic')
+    shares = db.relationship('Shares', backref='user', lazy='dynamic')
+    # files = db.relationship('Files', backref='users', lazy='dynamic',  primaryjoin="Users.id == Files.user_id")
+    # shares = db.relationship('Shares', backref='users', lazy='dynamic',  primaryjoin="Users.id == Shares.user_id")
 
     @staticmethod
-    def create(email, first_name, last_name, facebook_id):
+    def create(name, facebook_id):
         user = Users()
-        user.email = email
-        user.first_name = first_name
-        user.last_name = last_name
+        user.name = name
         user.facebook_id = facebook_id
 
         # Save the user

@@ -1,0 +1,21 @@
+{% extends "temp/base.html" %}
+{% block global_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/share.js') }}"></script>
+
+{% endblock %}
+{% block body %}
+    {% if type == "email"%}
+        <form id="verifyShare">
+            <input type="email" placeholder="Please verify your email" id="email">
+            <button type="submit">Verify</button>
+            <input type="hidden" value="{{ share_key }}" id="shareKey">
+        </form>
+    {% else %}
+        WAT
+    {% endif %}
+
+    <div id="list">
+
+    </div>
+{% endblock %}

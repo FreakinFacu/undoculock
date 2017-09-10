@@ -1,0 +1,31 @@
+body {
+    font-family: 'Montserrat';
+    font-size: 15px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #1CCFC9 !important;
+    background-image: url(../images/Background.png);
+    background-size: cover;
+
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.half {
+    -moz-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+}
+
+h5 {
+    color: white;
+    font-size: 40px;
+    font-weight: bold !important;
+}
+
+footer.page-footer, nav .nav-wrapper {
+    background-color: #0A5161;
+}
