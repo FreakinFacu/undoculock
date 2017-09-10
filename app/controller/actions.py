@@ -34,16 +34,11 @@ def upload():
     return "YAY"
 
 
-@actions.route("/")
-def index():
-    return render_template('temp/index.html')
-
-
 @actions.route("/login", methods=["POST"])
 def login():
     user = Users.create(request.json['name'], request.json['id'])
     login_user(user, True)
-    return json.dumps({"redirectUrl": url_for("actions.steptwo")})
+    return json.dumps({"redirectUrl": url_for("home.info")})
 
 
 @actions.route("/steptwo", methods=["GET"])
