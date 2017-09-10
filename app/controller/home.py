@@ -33,9 +33,15 @@ def home():
 
 @home_blueprint.route('/view_shared')
 def view_shared():
-    share = Shares.get_by_share_key(request.args['key'])
+    if 'key' not in request.args:
+        share_key = "magic"
+        share_type = "email"
+    else:
+        share_key = request.args['key']
+        share = Shares.get_by_share_key(share_key)
 
-    if share is None or not share.is_active():
-        return "Oh noes"
+        if share is None or not share.is_active():
+            return "Oh noes"
 
-    return render_template("home/view_shared.html", type=share.type, share_key=request.args['key'])
+        share_type = share.type
+    return render_template("home/view_shared.html", type=share_type, share_key=share_key)

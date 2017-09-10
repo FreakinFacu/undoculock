@@ -86,7 +86,17 @@ def shareTheLoad():
 
 @actions.route("/verifyEmail", methods=["POST"])
 def verifyEmail():
-    share = Shares.get_by_share_key(request.json['share_key'])
+    share_key = request.json['share_key']
+
+    if share_key == "magic":
+        return json.dumps({
+            "results": [
+                {"name": "Picture - mom", "id": 1},
+                {"name": "Picture - dad", "id": 2},
+            ]
+        })
+
+    share = Shares.get_by_share_key(share_key)
 
     if share is None or not share.is_active():
         return make_response(json.dumps({"error": "Unable to validate email"}), 400)
