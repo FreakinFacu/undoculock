@@ -72,7 +72,7 @@ def stepthree():
 @login_required
 def shareEmail():
     share = Shares.create(current_user.id, Shares.TYPE_EMAIL, request.json['email'])
-    return url_for("home.view_share", key=share.share_key)
+    return share.get_link()
 
 
 @actions.route("/shareLink")

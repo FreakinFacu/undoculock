@@ -2,131 +2,134 @@
 
 {% block header %}
 
-<header>
-    <div>
-        <div class="z-depth-2 row cyan darken-4 ">
-            <div class="center">
-                <img class="brand-logo center responsive-img" src="/static/images/Undocu-lock%20Logo%20Medium.png">
-                <div class="row center">
-                    <div class="container white-text">
-                        <div col s12>
-                        <h5>A Secure LockBox</h5>
+    <header>
+        <div>
+            <div class="z-depth-2 row cyan darken-4 ">
+                <div class="center">
+                    <img class="brand-logo center responsive-img" src="/static/images/Undocu-lock%20Logo%20Medium.png">
+                    <div class="row center">
+                        <div class="container white-text">
+                            <div col s12>
+                                <h5>A Secure LockBox</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 {% endblock %}
 
 {% block body %}
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '272957556553762',
-            cookie: true,
-            xfbml: true,
-            version: 'v2.10'
-        });
-        FB.AppEvents.logPageView();
-    };
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '272957556553762',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        };
 
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
-    window.checkLoginState = function() {
-        FB.getLoginStatus(function (response) {
-
-                if (response.status === "connected") {
-
-                    FB.api('/me', function (response) {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/actions/login',
-                            data: JSON.stringify(response),
-                            contentType: "application/json",
-                            dataType: 'json',
-                            success: function (response) {
-                                if (response.redirectUrl) {
-                                    location.href = response.redirectUrl;
-                                }
-                            },
-                            error: function (response) {
-                                if (response.responseJSON.errorMessage) {
-                                    $("#fbError").text(response.responseJSON.errorMessage).show()
-                                }
-                            }
-                        });
-                    })
-                    ;
-                }
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
             }
-        );
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
 
-    }
-</script>
+        window.checkLoginState = function () {
+            FB.getLoginStatus(function (response) {
 
-<main>
+                        if (response.status === "connected") {
 
-    <div class="row">
-        <div class="center container">
+                            FB.api('/me', function (response) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/actions/login',
+                                    data: JSON.stringify(response),
+                                    contentType: "application/json",
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        if (response.redirectUrl) {
+                                            location.href = response.redirectUrl;
+                                        }
+                                    },
+                                    error: function (response) {
+                                        if (response.responseJSON.errorMessage) {
+                                            $("#fbError").text(response.responseJSON.errorMessage).show()
+                                        }
+                                    }
+                                });
+                            })
+                            ;
+                        }
+                    }
+            );
 
-            <div class="fb-login-button"
-                 data-max-rows="1"
-                 data-size="large"
-                 data-button-type="login_with"
-                 data-show-faces="false"
-                 data-auto-logout-link="false"
-                 data-use-continue-as="false"
-                 data-onlogin="checkLoginState();"
-            ></div>
+
+        }
+    </script>
+
+    <main>
+
+        <div class="row">
+            <div class="center container">
+
+                <div class="fb-login-button"
+                     data-max-rows="1"
+                     data-size="large"
+                     data-button-type="login_with"
+                     data-show-faces="false"
+                     data-auto-logout-link="false"
+                     data-use-continue-as="false"
+                     data-onlogin="checkLoginState();"
+                ></div>
+            </div>
+
         </div>
 
-    </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text"><img src="/static/images/Asset%208.png"
+                                                           class="responsive-img half"></h2>
+                        <h5 class="center">Sign Up</h5>
 
-    <div class="container">
-       <div class="row">
-                    <div class="col s12 m4">
-                        <div class="icon-block">
-                            <h2 class="center brown-text"><img src="/static/images/Asset%208.png" class="responsive-img half"> </h2>
-                            <h5 class="center">Sing Up</h5>
-
-                            <p class="light">Following user has never been easier! Now you can find users and follow them based on the hastag you like the most. </p>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="icon-block">
-                            <h2 class="center brown-text"><img src="/static/images/Asset%209.png" class="responsive-img half" > </h2>
-                            <h5 class="center">Upload</h5>
-
-                            <p class="light">The amazing algorithm alows you to comment on your followers pictures or any other picture of non followers in any given hastag. </p>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="icon-block">
-                            <h2 class="center brown-text"><img src="/static/images/Asset%2010.png" class="responsive-img half"> </h2>
-                            <h5 class="center">Share</h5>
-
-                            <p class="light">Have the ability to unfollow those whom accounts are not following you; with just one click away.</p>
-                        </div>
+                        <p class="light center">Sign up has never been easier!</p>
                     </div>
                 </div>
-    </div>
 
-</main>
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text"><img src="/static/images/Asset%209.png"
+                                                           class="responsive-img half"></h2>
+                        <h5 class="center">Upload</h5>
+
+                        <p class="light center">Upload important documents. </p>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text"><img src="/static/images/Asset%2010.png"
+                                                           class="responsive-img half"></h2>
+                        <h5 class="center">Share</h5>
+
+                        <p class="light center">Securely send documents to trusted contacts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
 {% endblock %}
