@@ -1,20 +1,21 @@
 //// SFACEBOOK MODEULE ////
 var prev_val;
-$(document).ready(function () {
-    $('#s_fb').click(function () {
+    $('#s_fb').bind('click', function (e) {
         prev_val = $(this).val();
-    }).change(function () {
+    }).bind('change', function (e) {
         $(this).unbind('click');
         if ($(this).prop('checked') === true) {
-            //            if the switch is turn onn then put code here!
-            //            Materialize.toast('Activating share via facebook',3000);
+            // if the switch is turn onn then put code here!
+//             Materialize.toast('Activating share via facebook',3000);
             var user_fb = prompt("Please Enter the user name");
 
             //            ## if cancell, change the value to dissable
             if (user_fb === null) {
                 //                This string will grab the current value
                 _val = $('#s_fb').value;
+                console.log(_val);
                 x = _val ? false : true;
+                console.log(x);
                 if (x === true) {
                     console.log("Cancelled");
                 } else {
@@ -32,8 +33,9 @@ $(document).ready(function () {
             };
 
         } else {
-            //            if switch is deactivated then put code here!
-            Materialize.toast('Facebook shared has been deactivated', 3000);
+            //if switch is deactivated then put code here!
+            Materialize.toast('Deactivating share via facebook', 3000);
+//            Materialize.toast('Deactivating share via facebook', 3000);
         }
     });
 });
