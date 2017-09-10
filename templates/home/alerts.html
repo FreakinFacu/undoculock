@@ -2,50 +2,51 @@
 
 {% block body %}
     <div class="container card center">
-    <div class="row">
-        <div class="section">
-            <h4>Alerts</h4>
-            <a class="waves-effect waves-light btn red modal-trigger" href="#modal1">
-                <i class="material-icons left">add</i>Add new alert
-            </a>
-        </div>
-
-
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content section" style="min-height: 350px">
-                <h4>Create a new alert</h4>
-                <form action="/actions/addAlert" method="post">
-                    <div class="row">
-                        <div class="input-field col s12 m3">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_prefix" type="tel" class="validate">
-                            <label for="icon_prefix">Phone Number</label>
-                        </div>
-
-                        <div class="input-field col s12 m6">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_prefix" type="text" class="validate">
-                            <label for="icon_prefix">Message</label>
-                        </div>
-
-                        <div class="input-field col s12 m3">
-                            <select>
-                                <option value="" disabled selected>Choose your option</option>
-                                <option value="0">Now</option>
-                                <option value="1">1 hour</option>
-                                <option value="2">2 hours</option>
-                                <option value="3">5 hours</option>
-                            </select>
-                            <label>When should we send the alert?</label>
-                        </div>
-                    </div>
-                </form>
-                <p>Alerts can be set up ahead of time. If you end up not needing it you can come back and delete it.</p>
+        <div class="row">
+            <div class="section">
+                <h4>Alerts</h4>
+                <a class="waves-effect waves-light btn red modal-trigger" href="#modal1">
+                    <i class="material-icons left">add</i>Add new alert
+                </a>
             </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-                <a href="#!" class="modal-action waves-effect waves-green btn-flat">Create</a>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content section" style="min-height: 350px">
+                    <h4>Create a new alert</h4>
+                    <form action="/actions/addAlert" method="post">
+                        <div class="row">
+                            <div class="input-field col s12 m3">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="tel" class="validate">
+                                <label for="icon_prefix">Phone Number</label>
+                            </div>
+
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate">
+                                <label for="icon_prefix">Message</label>
+                            </div>
+
+                            <div class="input-field col s12 m3">
+                                <select>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="0">Now</option>
+                                    <option value="1">1 hour</option>
+                                    <option value="2">2 hours</option>
+                                    <option value="3">5 hours</option>
+                                </select>
+                                <label>When should we send the alert?</label>
+                            </div>
+                        </div>
+                    </form>
+                    <p>Alerts can be set up ahead of time. If you end up not needing it you can come back and delete
+                        it.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+                    <a href="#!" class="modal-action waves-effect waves-green btn-flat">Create</a>
+                </div>
             </div>
         </div>
     </div>
