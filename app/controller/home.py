@@ -19,7 +19,7 @@ def data():
 
 @home_blueprint.route('/complete')
 def complete():
-    return "You're done sharing"
+    return render_template('home/complete.html')
 
 
 @home_blueprint.route('/info')
