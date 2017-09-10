@@ -24,6 +24,11 @@ class Users(db.Model):
 
     @staticmethod
     def create(name, facebook_id):
+        existing = Users.get_by_fb_id(facebook_id)
+
+        if existing is not None:
+            return existing
+
         user = Users()
         user.name = name
         user.facebook_id = facebook_id
