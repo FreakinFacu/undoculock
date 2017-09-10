@@ -5,7 +5,7 @@ from flask import Blueprint, make_response, render_template, request, url_for
 from flask_login import current_user, login_required, login_user
 from werkzeug.utils import redirect, secure_filename
 
-from app.helpers.filepath import gen_file_name, get_display_filename_from_db
+from app.helpers.filepath import gen_file_name, get_display_filename_from_db, get_display_type
 from app.models.files import Files
 from app.models.shares import Shares
 from app.models.users import Users
@@ -91,8 +91,8 @@ def verifyEmail():
     if share_key == "magic":
         return json.dumps({
             "results": [
-                {"name": "Picture - mom", "id": 1},
-                {"name": "Picture - dad", "id": 2},
+                {"name": "Picture - mom", "id": 1, "type": "image"},
+                {"name": "Picture - dad", "id": 2, "type": "insert_chart"},
             ]
         })
 
@@ -106,7 +106,12 @@ def verifyEmail():
 
     files = share.user.files
 
-    file_list = [{"name": get_display_filename_from_db(f), "id": f.id} for f in files]
+    file_list = [{
+         "name": get_display_filename_from_db(f),
+         "id": f.id,
+         "type": get_display_type(f)
+     } for f in files]
+
     return json.dumps({"results": file_list})
 
 

@@ -39,18 +39,17 @@ $("#verifyShare").submit(function () {
                     var item = response['results'][i];
 
                     var clone = $("#template").clone();
+
                     clone.show();
                     clone.find("a").attr("data-id", item.id);
+                    clone.find("i.material-icons.circle").text(item.type);
+                    clone.find("span.title").text(item.name);
 
-                    $("ul.collection").append(
-                        $("<li>")
-                            .append($("<a>").text(item.name))
-                            .append($("<i>").append(clone))
-                    );
-
-                    $("#verifyShare").slideUp();
-                    $("table").slideDown();
+                    $("ul.collection").append(clone);
                 }
+
+                $(".showWhenValid").slideDown();
+                $("#verifyShare").slideUp();
             }
         },
         error: function (response) {
