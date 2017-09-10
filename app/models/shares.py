@@ -26,15 +26,30 @@ class Shares(db.Model):
     STATE_DELETED = "deleted"
 
     @staticmethod
-    def create(user_id):
+    def create(user_id, type, key):
         share = Shares()
         share.user_id = user_id
-        share.share_key = uuid.uuid4()
+        share.type = type
+        share.key = key
+        share.share_key = str(uuid.uuid4())
         share.state = Shares.STATE_ACTIVE
 
         # Save the user
         share.save()
         return share
+
+    @staticmethod
+    def get_by_share_key(share_key):
+        """
+
+        :param share_key:
+        :return: Shares
+        :rtype Shares
+        """
+        return Shares.query.filter_by(share_key=share_key).first()
+
+    def is_active(self):
+        return self.state == Shares.STATE_ACTIVE
 
     def save(self):
         db.session.add(self)

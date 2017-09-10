@@ -3,6 +3,7 @@ import time
 
 from dropbox import dropbox
 from flask import Blueprint, request
+from flask import make_response
 from flask import render_template
 from flask import url_for
 from flask.ext.login import current_user
@@ -10,6 +11,7 @@ from flask_login import login_required, login_user
 from werkzeug.utils import secure_filename, redirect
 
 from app.models.files import Files
+from app.models.shares import Shares
 from app.models.users import Users
 
 actions = Blueprint('actions', __name__, url_prefix='/actions')
@@ -90,4 +92,37 @@ def upload2():
 @actions.route("/stepthree")
 @login_required
 def stepthree():
-    return "Oh yiss"
+    return render_template("temp/share.html")
+
+
+@actions.route("/shareEmail", methods=["POST"])
+@login_required
+def shareEmail():
+    share = Shares.create(current_user.id, Shares.TYPE_EMAIL, request.json['email'])
+    return url_for("actions.shareTheLoad", key=share.share_key)
+
+
+@actions.route("/shareLink")
+def shareTheLoad():
+    share = Shares.get_by_share_key(request.args['key'])
+
+    if share is None or not share.is_active():
+        return "Oh noes"
+
+    return render_template("temp/load.html", type=share.type, share_key=request.args['key'])
+
+
+@actions.route("/verifyEmail", methods=["POST"])
+def verifyEmail():
+    share = Shares.get_by_share_key(request.json['share_key'])
+
+    if share is None or not share.is_active():
+        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+
+    if share.key != request.json['email']:
+        return make_response(json.dumps({"error": "Unable to validate email"}), 400)
+
+    files = share.user.files
+
+    file_list = [{"filepath": f.filepath, "id": f.id} for f in files]
+    return json.dumps({"results": file_list})

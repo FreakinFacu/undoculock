@@ -1,0 +1,12 @@
+{% extends "temp/base.html" %}
+{% block global_js %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/share.js') }}"></script>
+
+{% endblock %}
+{% block body %}
+    <form id="shareEmail">
+        <input type="email" id="email" placeholder="email">
+        <button type="submit">SHARE</button>
+    </form>
+{% endblock %}
