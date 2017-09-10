@@ -1,19 +1,6 @@
-  <!DOCTYPE html>
+{% extends "home/base.html" %}
 
-<html>
-    <head>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="../static/css/Computing.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="../static/css/Computingx.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="../static/css/style-fullscreen.css"  media="screen,projection"/>
-
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-
-    <body>
+{% block header %}
 
 <header>
     <div>
@@ -31,6 +18,32 @@
         </div>
     </div>
 </header>
+{% endblock %}
+
+{% block body %}
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '272957556553762',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.10'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
 
 <main>
 
@@ -38,7 +51,18 @@
 
 
     <div class="row">
-    <div class="center container"> <a class="waves-effect waves-light btn-large" href="base.html" >FACEBOOK</a></div>
+        <div class="center container">
+
+            <div class="fb-login-button"
+                 data-max-rows="1"
+                 data-size="large"
+                 data-button-type="login_with"
+                 data-show-faces="false"
+                 data-auto-logout-link="false"
+                 data-use-continue-as="false"
+                 data-onlogin="checkLoginState();"
+            ></div>
+        </div>
 
     </div>
 
@@ -80,20 +104,8 @@
 
 </main>
 
-<footer>
-    <div class="footer-copyright blue-grey darken-4"><br>
-        <div class="container">
-            © 2017 Copyright
-            <a class="grey-text text-lighten-4 right" href="#!">UndocuLock</a>
-        </div><br>
-    </div>
-</footer>
+{% endblock %}
 
-
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="../static/js/materialize.min.js"></script>
-      <script type="text/javascript" src="../static/js/Computingx.js"></script>
-      <script type="text/javascript" src="../static/js/init.js"></script>
-    </body>
-  </html>
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

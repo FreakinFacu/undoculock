@@ -27,6 +27,7 @@
 
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 
+{% block header %}
 <!-- START HEADER -->
 <header id="header" class="page-topbar">
     <!-- start header nav-->
@@ -58,6 +59,7 @@
     <!-- end header nav-->
 </header>
 <!-- END HEADER -->
+{% endblock%}
 
 <!-- START MAIN -->
 <main>
@@ -192,6 +194,9 @@
 <script type="text/javascript" src="../static/js/materialize.js"></script>
 <script type="text/javascript" src="../static/js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="../static/js/init.js"></script>
+
+{% block extra_js %}
+{% endblock %}
 </body>
 
 </html>
