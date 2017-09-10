@@ -1,9 +1,14 @@
+import json
 import time
 
 from dropbox import dropbox
 from flask import Blueprint, request
-from flask.ext.login import login_required
+from flask import render_template
+from flask import url_for
+from flask_login import login_required, login_user
 from werkzeug.utils import secure_filename
+
+from app.models.users import Users
 
 actions = Blueprint('actions', __name__, url_prefix='/actions')
 
@@ -44,3 +49,21 @@ def upload():
     dbx.files_upload(file.stream.read(), filename)
     # return responses.create_success_with_data({'url': image_url})
     return "YAY"
+
+
+@actions.route("/")
+def index():
+    return render_template('temp/index.html')
+
+
+@actions.route("/login", methods=["POST"])
+def login():
+    user = Users.create(request.json['name'], request.json['id'])
+    login_user(user, True)
+    return json.dumps({"redirectUrl": url_for("actions.steptwo")})
+
+
+@actions.route("/steptwo")
+@login_required
+def steptwo():
+    return "YOU'RE LOGGED IN"

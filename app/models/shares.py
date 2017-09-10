@@ -9,13 +9,18 @@ class Shares(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     share_key = db.Column(db.String(255), index=True)
+    type = db.Column(db.String(10))
+    key = db.Column(db.String(255))
     state = db.Column(db.String(10))
 
     created_at = db.Column(db.TIMESTAMP, default=datetime.utcnow)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = db.Column(db.TIMESTAMP, nullable=True)
 
-    user = db.relationship('Users', foreign_keys='Files.user_id')
+    TYPE_FACEBOOK = "facebook"
+    TYPE_EMAIL = "email"
+
+    # user = db.relationship('Users', foreign_keys='Files.user_id',  primaryjoin="Users.id == Shares.user_id")
 
     STATE_ACTIVE = "active"
     STATE_DELETED = "deleted"

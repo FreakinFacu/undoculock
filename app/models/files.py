@@ -14,7 +14,7 @@ class Files(db.Model):
     updated_at = db.Column(db.TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = db.Column(db.TIMESTAMP, nullable=True)
 
-    user = db.relationship('Users', foreign_keys='Files.user_id')
+    # user = db.relationship('Users', foreign_keys='Files.user_id',  primaryjoin="Users.id == Files.user_id")
 
     STATE_ACTIVE = "active"
     STATE_DELETED = "deleted"

@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 
 from app.controller.actions import actions
 from app.controller.home import home
@@ -7,7 +7,6 @@ from app.models import db, create_all
 from app.models.users import Users
 
 app = Flask(__name__)
-app.debug = True
 
 # Register Blueprints
 app.register_blueprint(home)
